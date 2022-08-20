@@ -1,0 +1,47 @@
+{% extends 'base/base1.html' %}
+{% block title%}{% if rol %}Editar{% else %}Nuevo{% endif%} Rol{% endblock%}
+{% block content%}
+	<form method="POST" class="form-inline justify-content-center">
+
+        <div class="col-xl-6 col-md-6 mb-6">
+
+            <div class="card border-left-danger shadow h-100 py-2">
+
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                           Cambiar estado del Rol
+                        </div>
+                        <div class="dropdown-divider"></div>
+
+                        <div class="row justify-content-center">
+
+                                <div class="form-group">
+                                    <div class="col-lg-6 col-sm-12">
+                                        <label for="estado">Estado</label>
+                                    </div>
+                                    <div class="col-lg-6 col-sm-12  justify-content-center">
+                                        <select name="estado" id="estado">
+                                        <option value=0 {% if not rol.status%}selected{%endif%}>Inactivo</option>
+                                        <option value=1 {% if rol.status%}selected{%endif%}>Activo</option>
+                                        </select>
+                                    </div>
+                                </div>
+                        </div>
+
+                        <div class="dropdown-divider"></div>
+                        <div class="row justify-content-center">
+                            <div class="col-6">
+                                <button type="submit" class="btn btn-warning mb-4"><i class="far fa-hand-pointer">Aceptar</i></button>
+                                <a class="btn btn-danger mb-4" href="{{ ref }}" role="button">Cancelar</a>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</form>
+{% endblock%}
