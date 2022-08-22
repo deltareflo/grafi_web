@@ -3,7 +3,7 @@ import datetime
 from sqlalchemy import column, String, Integer, ForeignKey, Boolean, Text, Date, func
 from sqlalchemy_utils import ChoiceType
 from sqlalchemy.orm import relationship
-from flask_login import UserMixin
+from flask_login import current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 import enum
 
@@ -18,6 +18,8 @@ class TimestampMixin(object):
         db.DateTime, nullable=False, server_default=func.now())
     updated = db.Column(db.DateTime, onupdate=func.now())
     status = db.Column(Boolean, default=True)
+    usuario_c = db.Column(Integer, ForeignKey('grafi_usuarios.id'), default=current_user.id)
+    usuario_m = db.Column(Integer, ForeignKey('grafi_usuarios.id'), onupdate=current_user.id)
 
 
 """

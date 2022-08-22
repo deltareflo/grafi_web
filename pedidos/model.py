@@ -63,6 +63,43 @@ class Papeles(db.Model, TimestampMixin):
     tipo_papel = db.relationship('TipoPapeles', backref='papeles', lazy=True)
     id_proveedor = db.Column(Integer, ForeignKey('proveedor.id'))
     proveedor = db.relationship('Proveedor', backref='proveedor_user', lazy=True)
+    producto = db.relationship('Productos', backref='papeles', lazy=True)
 
     def __repr__(self):
         return f'<Papeles {self.nombre}>'
+
+
+class Productos(db.Model, TimestampMixin):
+    __table_name__ = 'productos'
+    id = db.Column(Integer, primary_key=True)
+    nombre = db.Column(String(length=40), nullable=False, unique=True)
+    descripcion = db.Column(String(length=150), nullable=False)
+    ancho = db.Column(Integer, nullable=False)
+    largo = db.Column(Integer, nullable=False)
+    precio = db.Column(Integer, nullable=False)
+    # ForeignKey
+    id_papeles = db.Column(Integer, ForeignKey('papeles.id'))
+
+    def __repr__(self):
+        return f'<Producto {self.nombre}>'
+
+
+class PresupuestoHead(db.Model, TimestampMixin):
+    __table_name__ = 'presupuesto_cabecera'
+    id = db.Column(Integer, primary_key=True)
+    # ForeignKey
+    id_cliente = db.Column(Integer, ForeignKey('grafi_clientes.id'))
+    presupuesto_det = db.relationship('PresupuestoDet', backref='presu_cabecera', lazy=True)
+
+    def __repr__(self):
+        return f'<Presupuesto {self.nombre}>'
+
+
+class PresupuestoDet(db.Model, TimestampMixin):
+    __table_name__ = 'presupuesto_det'
+    id = db.Column(Integer, primary_key=True)
+    cantidad = db.Column(Integer, nullable=False)
+    precio = db.Column(Integer, nullable=False)
+    # Foreign Key
+    id_producto = db.Column(Integer, ForeignKey('productos.id'))
+    id_presu_head= db.Column(Integer, ForeignKey('presupuesto_cabecera.id'))
