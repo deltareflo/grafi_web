@@ -103,3 +103,4 @@ class PresupuestoDet(db.Model, TimestampMixin):
     # Foreign Key
     id_producto = db.Column(Integer, ForeignKey('productos.id'))
     id_presu_head= db.Column(Integer, ForeignKey('presupuesto_cabecera.id'))
+
